@@ -6,6 +6,8 @@ import UniformTypeIdentifiers
 import Cocoa
 
 final class Plugin {
+    var generatedImage: CGImage;
+
     init(resourcePath: String, prompt: String) throws {
         let config = MLModelConfiguration()
         config.computeUnits = MLComputeUnits.all
@@ -28,12 +30,7 @@ final class Plugin {
         pipelineConfig.rngType = StableDiffusionRNG.numpyRNG
 
         let images = try pipeline.generateImages(configuration: pipelineConfig)
-
-        let outURL = URL(filePath: "Test.png")
-        let image = images[0]
-        let dest = CGImageDestinationCreateWithURL(outURL as CFURL, UTType.png.identifier as CFString, 1, nil)
-        CGImageDestinationAddImage(dest!, image!, nil)
-        CGImageDestinationFinalize(dest!)
+        generatedImage = images[0]!
     }
 }
 
@@ -49,6 +46,13 @@ public func plugin_create(resourcePathPtr: OpaquePointer,
     } catch {
         return nil
     }
+}
+
+@_cdecl("plugin_get_image")
+public func plugin_get_image(_ type: OpaquePointer) -> OpaquePointer! {
+    let type = Unmanaged<Plugin>.fromOpaque(UnsafeRawPointer(type)).takeUnretainedValue()
+    let raw = CFDataGetBytePtr(type.generatedImage.dataProvider!.data)
+    return OpaquePointer(raw);
 }
 
 @_cdecl("plugin_destroy")
