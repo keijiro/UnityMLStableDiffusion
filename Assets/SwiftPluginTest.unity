@@ -241,6 +241,9 @@ MonoBehaviour:
   _prompt: Monkey reading a book, wearing a gas mask, graffiti, edge to edge, solid
     color background intricate, highly detailed, smooth, sharp focus, detailed face
     and body, high contrast
+  _stepCount: 20
+  _seed: 123
+  _guidanceScale: 7
 --- !u!4 &982358088
 Transform:
   m_ObjectHideFlags: 0
