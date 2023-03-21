@@ -3,22 +3,22 @@
 import PackageDescription
 
 let package = Package(
-    name: "SwiftPlugin",
+    name: "StableDiffusionPlugin",
     platforms: [
         .macOS("13.1")
     ],
     products: [
         .library(
-            name: "SwiftPlugin",
+            name: "StableDiffusionPlugin",
             type: .dynamic,
-            targets: ["SwiftPlugin"]),
+            targets: ["StableDiffusionPlugin"]),
     ],
     dependencies: [
         .package(url: "https://github.com/apple/ml-stable-diffusion.git", branch: "main")
     ],
     targets: [
         .target(
-            name: "SwiftPlugin",
+            name: "StableDiffusionPlugin",
             dependencies: [
                 .product(name: "StableDiffusion", package: "ml-stable-diffusion")
             ])
