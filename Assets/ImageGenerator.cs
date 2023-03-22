@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 
 public sealed class ImageGenerator : MonoBehaviour
 {
-    [SerializeField] string _resourcePath = "coreml-stable-diffusion-2-base/split_einsum/compiled";
     [SerializeField] string _prompt = "a photo of a dog";
     [SerializeField] int _stepCount = 25;
     [SerializeField] int _seed = 100;
@@ -14,11 +13,14 @@ public sealed class ImageGenerator : MonoBehaviour
     StableDiffusion.Pipeline _pipeline;
     Task _task;
 
+    string ResourcePath
+      => Application.streamingAssetsPath + "/StableDiffusion";
+
     void Start()
     {
         _task = Task.Run(() => {
             if (_pipeline == null)
-                _pipeline = StableDiffusion.Pipeline.Create(_resourcePath);
+                _pipeline = StableDiffusion.Pipeline.Create(ResourcePath);
             _pipeline.SetConfig(_prompt, _stepCount, _seed, _guidanceScale);
             _pipeline.RunGenerator();
         });
