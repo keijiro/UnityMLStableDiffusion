@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Threading.Tasks;
 
 public sealed class ImageGenerator : MonoBehaviour
 {
@@ -11,23 +10,28 @@ public sealed class ImageGenerator : MonoBehaviour
     [SerializeField] RawImage _preview = null;
 
     StableDiffusion.Pipeline _pipeline;
-    Task _task;
+    Awaitable _task;
 
     string ResourcePath
       => Application.streamingAssetsPath + "/StableDiffusion";
 
-    void Start()
+    async Awaitable RunGeneratorAsync()
     {
-        _task = Task.Run(() => {
-            if (_pipeline == null)
-                _pipeline = StableDiffusion.Pipeline.Create(ResourcePath);
-            _pipeline.SetConfig(_prompt, _stepCount, _seed, _guidanceScale);
-            _pipeline.RunGenerator();
-        });
+        await Awaitable.BackgroundThreadAsync();
+        if (_pipeline == null)
+            _pipeline = StableDiffusion.Pipeline.Create(ResourcePath);
+        _pipeline.SetConfig(_prompt, _stepCount, _seed, _guidanceScale);
+        _pipeline.RunGenerator();
     }
+
+    void Start()
+      => _task = RunGeneratorAsync();
 
     void OnDestroy()
     {
+        _task?.Cancel();
+        _task = null;
+
         _pipeline?.Dispose();
         _pipeline = null;
     }
@@ -42,7 +46,6 @@ public sealed class ImageGenerator : MonoBehaviour
 
             _preview.texture = tex;
 
-            _task.Dispose();
             _task = null;
         }
     }
