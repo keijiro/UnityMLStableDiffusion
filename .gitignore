@@ -10,5 +10,6 @@ Desktop.ini
 /UserSettings
 
 /Plugin/.build
+/Plugin/.xcodebuild
 
 /Assets/StreamingAssets/StableDiffusion

@@ -36,7 +36,11 @@ public class Pipeline : SafeHandleZeroOrMinusOneIsInvalid
 
     #region Unmanaged interface
 
+#if UNITY_IOS && !UNITY_EDITOR
+    const string DllName = "__Internal";
+#else
     const string DllName = "StableDiffusionPlugin";
+#endif
 
     [DllImport(DllName, EntryPoint = "SDCreate")]
     static extern Pipeline _Create(string resourcePath);
