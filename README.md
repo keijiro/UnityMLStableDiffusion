@@ -26,7 +26,7 @@ Before running the sample project, you must put the model files in the
 - Copy the `split_einsum/compiled` directory into `Assets/StreamingAssets`.
 - Rename the directory to `StableDiffusion`.
 
-[pre-converted Stable Diffusion model repository]:
+[pre-converted Stable Diffusion 2 model repository]:
   https://huggingface.co/apple/coreml-stable-diffusion-2-base
 
 It takes a long time (a few minutes) for the first run. After this
