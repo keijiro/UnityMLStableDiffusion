@@ -1,4 +1,5 @@
 import CoreML
+import Accelerate
 import StableDiffusion
 
 final class Plugin {
@@ -17,10 +18,11 @@ final class Plugin {
 
         // Pipeline initialization
         let resourceURL = URL(filePath: resourcePath)
-        pipeline = try StableDiffusionPipeline(resourcesAt: resourceURL,
-                                             configuration: mlConfig,
-                                             disableSafety: true,
-                                              reduceMemory: false)
+        pipeline = try StableDiffusionPipeline(
+            resourcesAt: resourceURL,
+            configuration: mlConfig,
+            disableSafety: true,
+            reduceMemory: false)
         try pipeline.loadResources()
 
         // Initial configuration
@@ -45,11 +47,13 @@ public func SDCreate(resourcePath: OpaquePointer) -> OpaquePointer! {
 }
 
 @_cdecl("SDSetConfig")
-public func SDSetConfig(_ plugin: OpaquePointer,
-                          prompt: OpaquePointer,
-                       stepCount: CInt,
-                            seed: CInt,
-                   guidanceScale: CFloat) {
+public func SDSetConfig(
+    _ plugin: OpaquePointer,
+    prompt: OpaquePointer,
+    stepCount: CInt,
+    seed: CInt,
+    guidanceScale: CFloat
+) {
     let plugin = Unmanaged<Plugin>.fromOpaque(UnsafeRawPointer(plugin)).takeUnretainedValue()
     plugin.config.prompt = String(cString: UnsafePointer<CChar>(prompt))
     plugin.config.stepCount = Int(stepCount)
@@ -60,6 +64,34 @@ public func SDSetConfig(_ plugin: OpaquePointer,
 @_cdecl("SDGenerate")
 public func SDGenerate(_ plugin: OpaquePointer) {
     let plugin = Unmanaged<Plugin>.fromOpaque(UnsafeRawPointer(plugin)).takeUnretainedValue()
+    try? plugin.runGenerator()
+}
+
+@_cdecl("SDGenerateFromImage")
+public func SDGenerateFromImage(
+    _ plugin: OpaquePointer,
+    image: OpaquePointer,
+    strength: CFloat
+) {
+    let plugin = Unmanaged<Plugin>.fromOpaque(UnsafeRawPointer(plugin)).takeUnretainedValue()
+    let pointer = UnsafeMutableRawPointer(image)
+
+    // Raw pointer to CGImage object
+    let buffer = vImage.PixelBuffer<vImage.Interleaved8x3>(
+        data: pointer,
+        width: 512,
+        height: 512,
+        byteCountPerRow: 512 * 3)
+    let format = vImage_CGImageFormat(
+        bitsPerComponent: 8,
+        bitsPerPixel: 3 * 8,
+        colorSpace: CGColorSpaceCreateDeviceRGB(),
+        bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.none.rawValue))!
+    let cgImage = buffer.makeCGImage(cgImageFormat: format)!
+
+    // img2img run
+    plugin.config.startingImage = cgImage
+    plugin.config.strength = strength
     try? plugin.runGenerator()
 }
 

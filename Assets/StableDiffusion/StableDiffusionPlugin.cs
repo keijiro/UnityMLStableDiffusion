@@ -1,6 +1,7 @@
 using System.Runtime.InteropServices;
 using IntPtr = System.IntPtr;
 using Microsoft.Win32.SafeHandles;
+using System;
 
 namespace StableDiffusion {
 
@@ -29,6 +30,12 @@ public class Pipeline : SafeHandleZeroOrMinusOneIsInvalid
     public void RunGenerator()
       => _Generate(this);
 
+    public unsafe void RunGeneratorFromImage(Span<byte> image, float strength)
+    {
+        fixed (byte* ptr = image)
+          _GenerateFromImage(this, (IntPtr)ptr, strength);
+    }
+
     public IntPtr ImageBufferPointer
       => _GetImage(this);
 
@@ -51,6 +58,10 @@ public class Pipeline : SafeHandleZeroOrMinusOneIsInvalid
 
     [DllImport(DllName, EntryPoint = "SDGenerate")]
     static extern void _Generate(Pipeline self);
+
+    [DllImport(DllName, EntryPoint = "SDGenerateFromImage")]
+    static extern void _GenerateFromImage
+      (Pipeline self, IntPtr image, float strength);
 
     [DllImport(DllName, EntryPoint = "SDGetImage")]
     static extern IntPtr _GetImage(Pipeline self);

@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public sealed class ImageGenerator : MonoBehaviour
 {
+    [SerializeField] Texture2D _source = null;
+    [SerializeField] float _strength = 0.5f;
     [SerializeField] string _prompt = "a photo of a dog";
     [SerializeField] int _stepCount = 25;
     [SerializeField] int _seed = 100;
@@ -15,17 +17,24 @@ public sealed class ImageGenerator : MonoBehaviour
     string ResourcePath
       => Application.streamingAssetsPath + "/StableDiffusion";
 
-    async Awaitable RunGeneratorAsync()
+    async Awaitable RunGeneratorAsync(byte[] image)
     {
         await Awaitable.BackgroundThreadAsync();
+
         if (_pipeline == null)
             _pipeline = StableDiffusion.Pipeline.Create(ResourcePath);
+
         _pipeline.SetConfig(_prompt, _stepCount, _seed, _guidanceScale);
-        _pipeline.RunGenerator();
+
+        if (image != null)
+            _pipeline.RunGeneratorFromImage(image, _strength);
+        else
+            _pipeline.RunGenerator();
     }
 
     void Start()
-      => _task = RunGeneratorAsync();
+      => _task = RunGeneratorAsync
+           (_source != null ? _source.GetRawTextureData() : null);
 
     void OnDestroy()
     {

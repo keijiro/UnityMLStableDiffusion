@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731689, g: 0.13414702, b: 0.1210784, a: 1}
+  m_IndirectSpecularColor: {r: 0.12729394, g: 0.1341429, b: 0.121147014, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -67,9 +67,6 @@ LightmapSettings:
     m_LightmapParameters: {fileID: 0}
     m_LightmapsBakeMode: 1
     m_TextureCompression: 1
-    m_FinalGather: 0
-    m_FinalGatherFiltering: 1
-    m_FinalGatherRayCount: 256
     m_ReflectionCompression: 2
     m_MixedBakeMode: 2
     m_BakeBackend: 1
@@ -405,11 +402,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4583c9969d16417fb4c27da70370dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _resourcePath: ..//Stable Diffusion/coreml-stable-diffusion-2-base/split_einsum/compiled
-  _prompt: Monkey reading a book, wearing a gas mask, graffiti, edge to edge, solid
-    color background intricate, highly detailed, smooth, sharp focus, detailed face
-    and body, high contrast
-  _stepCount: 20
+  _source: {fileID: 2800000, guid: b22a707369e654ce5b797e408e8b7df0, type: 3}
+  _strength: 0.55
+  _prompt: drawn by arthur rackham
+  _stepCount: 10
   _seed: 123
   _guidanceScale: 7
   _preview: {fileID: 1157029743}
