@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using Stopwatch = System.Diagnostics.Stopwatch;
 
 public sealed class ImageGenerator : MonoBehaviour
 {
@@ -54,10 +55,15 @@ public sealed class ImageGenerator : MonoBehaviour
 
         await Awaitable.BackgroundThreadAsync();
 
+        var time = new Stopwatch();
+        time.Start();
+
         if (image != null)
             _pipeline.RunGeneratorFromImage(image, _strength);
         else
             _pipeline.RunGenerator();
+
+        time.Stop();
 
         await Awaitable.MainThreadAsync();
 
@@ -65,7 +71,7 @@ public sealed class ImageGenerator : MonoBehaviour
         tex.LoadRawTextureData(_pipeline.ImageBufferPointer, 512 * 512 * 3);
         tex.Apply();
 
-        _uiMessage.text = "";
+        _uiMessage.text = $"Generation time: {time.Elapsed.TotalSeconds:f2} sec";
         _uiGenerate.interactable = true;
         _uiPreview.texture = tex;
     }
