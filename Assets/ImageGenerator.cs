@@ -7,14 +7,13 @@ public sealed class ImageGenerator : MonoBehaviour
     #region Editable attributes
 
     [SerializeField] Texture2D _source = null;
-    [SerializeField] float _strength = 0.5f;
-    [SerializeField] int _stepCount = 25;
-    [SerializeField] int _seed = 100;
-    [SerializeField] float _guidanceScale = 8;
-
-    [SerializeField] RawImage _uiPreview = null;
     [SerializeField] InputField _uiPrompt = null;
+    [SerializeField] Slider _uiStrength = null;
+    [SerializeField] Slider _uiStepCount = null;
+    [SerializeField] Slider _uiSeed = null;
+    [SerializeField] Slider _uiGuidance = null;
     [SerializeField] Button _uiGenerate = null;
+    [SerializeField] RawImage _uiPreview = null;
     [SerializeField] Text _uiMessage = null;
 
     #endregion
@@ -48,7 +47,11 @@ public sealed class ImageGenerator : MonoBehaviour
     async Awaitable RunPipelineAsync()
     {
         var image = _source != null ? _source.GetRawTextureData() : null;
-        _pipeline.SetConfig(_uiPrompt.text, _stepCount, _seed, _guidanceScale);
+        var strength = _uiStrength.value;
+
+        _pipeline.SetConfig
+          (_uiPrompt.text, (int)_uiStepCount.value,
+           (int)_uiSeed.value, (int)_uiGuidance.value);
 
         _uiMessage.text = "Generating...";
         _uiGenerate.interactable = false;
@@ -59,7 +62,7 @@ public sealed class ImageGenerator : MonoBehaviour
         time.Start();
 
         if (image != null)
-            _pipeline.RunGeneratorFromImage(image, _strength);
+            _pipeline.RunGeneratorFromImage(image, strength);
         else
             _pipeline.RunGenerator();
 
