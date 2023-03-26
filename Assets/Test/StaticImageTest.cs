@@ -39,7 +39,8 @@ public sealed class StaticImageTest : MonoBehaviour
 
     async Awaitable SetUpPipelineAsync()
     {
-        _uiMessage.text = "Loading model data...";
+        _uiMessage.text =
+          "Loading resources...\n(This takes a few minites for the first time.)";
         _uiGenerate.interactable = false;
 
         _pipeline = new StableDiffusion.Pipeline(_preprocess);

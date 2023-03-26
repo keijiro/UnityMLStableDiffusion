@@ -449,7 +449,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 140}
+  m_AnchoredPosition: {x: 0, y: 160}
   m_SizeDelta: {x: -80, y: 48}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &221732682
@@ -1627,7 +1627,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 40, y: 40}
-  m_SizeDelta: {x: -80, y: 32}
+  m_SizeDelta: {x: -80, y: 60}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &769265185
 MonoBehaviour:
@@ -1656,13 +1656,15 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 6
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Message
+  m_Text: 'Message
+
+    Text'
 --- !u!222 &769265186
 CanvasRenderer:
   m_ObjectHideFlags: 0
