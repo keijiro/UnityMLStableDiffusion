@@ -496,8 +496,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 982358087}
-        m_TargetAssemblyTypeName: ImageGenerator, Assembly-CSharp
+      - m_Target: {fileID: 982358089}
+        m_TargetAssemblyTypeName: DynamicImageTest, Assembly-CSharp
         m_MethodName: OnClickGenerate
         m_Mode: 1
         m_Arguments:
@@ -1970,36 +1970,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 982358088}
-  - component: {fileID: 982358087}
+  - component: {fileID: 982358089}
   m_Layer: 0
-  m_Name: Image Generator
+  m_Name: Tester
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &982358087
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 982358086}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4583c9969d16417fb4c27da70370dc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _source: {fileID: 2800000, guid: a7f6159b4e3b24b0bae8cade1479b130, type: 3}
-  _uiPrompt: {fileID: 1184634708}
-  _uiStrength: {fileID: 1680477938}
-  _uiStepCount: {fileID: 1979490140}
-  _uiSeed: {fileID: 374953529}
-  _uiGuidance: {fileID: 978821880}
-  _uiGenerate: {fileID: 221732682}
-  _uiPreview: {fileID: 1157029743}
-  _uiMessage: {fileID: 769265185}
-  _preprocess: {fileID: 7200000, guid: 7c06db8e339994c05bc2ad5e44c940de, type: 3}
 --- !u!4 &982358088
 Transform:
   m_ObjectHideFlags: 0
@@ -2015,6 +1993,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &982358089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982358086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee276930605fa4730ac92e983b73c40f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _source: {fileID: 2800000, guid: a7f6159b4e3b24b0bae8cade1479b130, type: 3}
+  _uiPrompt: {fileID: 1184634708}
+  _uiStrength: {fileID: 1680477938}
+  _uiStepCount: {fileID: 1979490140}
+  _uiSeed: {fileID: 374953529}
+  _uiGuidance: {fileID: 978821880}
+  _uiGenerate: {fileID: 221732682}
+  _uiPreview: {fileID: 1157029743}
+  _uiMessage: {fileID: 769265185}
+  _preprocess: {fileID: 7200000, guid: 7c06db8e339994c05bc2ad5e44c940de, type: 3}
 --- !u!1 &1077615122
 GameObject:
   m_ObjectHideFlags: 0

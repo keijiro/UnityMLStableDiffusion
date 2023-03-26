@@ -983,7 +983,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  m_BackGroundColor: {r: 0.11320752, g: 0.11320752, b: 0.11320752, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -2036,7 +2036,7 @@ GameObject:
   - component: {fileID: 982358088}
   - component: {fileID: 982358089}
   m_Layer: 0
-  m_Name: Test
+  m_Name: Tester
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2075,6 +2075,7 @@ MonoBehaviour:
   _uiStepCount: {fileID: 1979490140}
   _uiSeed: {fileID: 374953529}
   _uiGuidance: {fileID: 978821880}
+  _uiGenerate: {fileID: 0}
   _uiPreview: {fileID: 1157029743}
   _uiMessage: {fileID: 769265185}
   _preprocess: {fileID: 7200000, guid: 7c06db8e339994c05bc2ad5e44c940de, type: 3}
