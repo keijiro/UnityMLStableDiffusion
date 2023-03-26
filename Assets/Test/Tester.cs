@@ -1,12 +1,16 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Stopwatch = System.Diagnostics.Stopwatch;
+using ComputeUnits = StableDiffusion.ComputeUnits;
 
 public sealed class Tester : MonoBehaviour
 {
     #region Editable attributes
 
     [SerializeField] Texture _source = null;
+    [Space]
+    [SerializeField] string _resourceDir = "StableDiffusion";
+    [SerializeField] ComputeUnits _computeUnits = ComputeUnits.All;
     [Space]
     [SerializeField] InputField _uiPrompt = null;
     [SerializeField] Slider _uiStrength = null;
@@ -28,7 +32,7 @@ public sealed class Tester : MonoBehaviour
     #region Stable Diffusion pipeline objects
 
     string ResourcePath
-      => Application.streamingAssetsPath + "/StableDiffusion";
+      => Application.streamingAssetsPath + "/" + _resourceDir;
 
     StableDiffusion.Pipeline _pipeline;
     RenderTexture _generated;
@@ -45,7 +49,7 @@ public sealed class Tester : MonoBehaviour
         if (_uiGenerate != null) _uiGenerate.interactable = false;
 
         _pipeline = new StableDiffusion.Pipeline(_preprocess);
-        await _pipeline.InitializeAsync(ResourcePath);
+        await _pipeline.InitializeAsync(ResourcePath, _computeUnits);
 
         _uiMessage.text = "";
         if (_uiGenerate != null) _uiGenerate.interactable = true;

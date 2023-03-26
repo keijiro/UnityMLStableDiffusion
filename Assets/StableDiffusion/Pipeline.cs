@@ -66,11 +66,12 @@ public sealed class Pipeline : System.IDisposable
         _plugin = null;
     }
 
-    public async Awaitable InitializeAsync(string resourcePath)
+    public async Awaitable InitializeAsync
+      (string resourcePath, ComputeUnits units = ComputeUnits.All)
     {
         // Pipeline initialization on the background thread
         await Awaitable.BackgroundThreadAsync();
-        _plugin = Plugin.Create(resourcePath);
+        _plugin = Plugin.Create(resourcePath, units);
         await Awaitable.MainThreadAsync();
     }
 

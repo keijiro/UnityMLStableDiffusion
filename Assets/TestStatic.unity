@@ -2006,6 +2006,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _source: {fileID: 2800000, guid: a7f6159b4e3b24b0bae8cade1479b130, type: 3}
+  _resourceDir: StableDiffusion
+  _computeUnits: 2
   _uiPrompt: {fileID: 1184634708}
   _uiStrength: {fileID: 1680477938}
   _uiStepCount: {fileID: 1979490140}

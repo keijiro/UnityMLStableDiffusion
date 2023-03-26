@@ -5,6 +5,8 @@ using System;
 
 namespace StableDiffusion {
 
+public enum ComputeUnits { Cpu, CpuAndGpu, All, CpuAndNE }
+
 public class Plugin : SafeHandleZeroOrMinusOneIsInvalid
 {
     #region SafeHandle implementation
@@ -21,10 +23,7 @@ public class Plugin : SafeHandleZeroOrMinusOneIsInvalid
 
     #region Public methods
 
-    public enum ComputeUnits { Cpu, CpuAndGpu, All, CpuAndNE }
-
-    public static Plugin Create
-      (string resourcePath, ComputeUnits units = ComputeUnits.All)
+    public static Plugin Create(string resourcePath, ComputeUnits units)
       => _Create(resourcePath, (int)units);
 
     public void SetConfig(string prompt, int steps, int seed, float guidance)
@@ -54,7 +53,7 @@ public class Plugin : SafeHandleZeroOrMinusOneIsInvalid
 #endif
 
     [DllImport(DllName, EntryPoint = "SDCreate")]
-    static extern Plugin _Create(string resourcePath, int units);
+    static extern Plugin _Create(string resourcePath, int computeUnits);
 
     [DllImport(DllName, EntryPoint = "SDSetConfig")]
     static extern void _SetConfig
