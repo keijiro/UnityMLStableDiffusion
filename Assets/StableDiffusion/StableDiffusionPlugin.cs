@@ -5,11 +5,11 @@ using System;
 
 namespace StableDiffusion {
 
-public class Pipeline : SafeHandleZeroOrMinusOneIsInvalid
+public class Plugin : SafeHandleZeroOrMinusOneIsInvalid
 {
     #region SafeHandle implementation
 
-    Pipeline() : base(true) {}
+    Plugin() : base(true) {}
 
     protected override bool ReleaseHandle()
     {
@@ -21,7 +21,7 @@ public class Pipeline : SafeHandleZeroOrMinusOneIsInvalid
 
     #region Public methods
 
-    public static Pipeline Create(string resourcePath)
+    public static Plugin Create(string resourcePath)
       => _Create(resourcePath);
 
     public void SetConfig(string prompt, int steps, int seed, float guidance)
@@ -30,7 +30,8 @@ public class Pipeline : SafeHandleZeroOrMinusOneIsInvalid
     public void RunGenerator()
       => _Generate(this);
 
-    public unsafe void RunGeneratorFromImage(Span<byte> image, float strength)
+    public unsafe void RunGeneratorFromImage
+      (ReadOnlySpan<byte> image, float strength)
     {
         fixed (byte* ptr = image)
           _GenerateFromImage(this, (IntPtr)ptr, strength);
@@ -50,21 +51,21 @@ public class Pipeline : SafeHandleZeroOrMinusOneIsInvalid
 #endif
 
     [DllImport(DllName, EntryPoint = "SDCreate")]
-    static extern Pipeline _Create(string resourcePath);
+    static extern Plugin _Create(string resourcePath);
 
     [DllImport(DllName, EntryPoint = "SDSetConfig")]
     static extern void _SetConfig
-      (Pipeline self, string prompt, int steps, int seed, float guidance);
+      (Plugin self, string prompt, int steps, int seed, float guidance);
 
     [DllImport(DllName, EntryPoint = "SDGenerate")]
-    static extern void _Generate(Pipeline self);
+    static extern void _Generate(Plugin self);
 
     [DllImport(DllName, EntryPoint = "SDGenerateFromImage")]
     static extern void _GenerateFromImage
-      (Pipeline self, IntPtr image, float strength);
+      (Plugin self, IntPtr image, float strength);
 
     [DllImport(DllName, EntryPoint = "SDGetImage")]
-    static extern IntPtr _GetImage(Pipeline self);
+    static extern IntPtr _GetImage(Plugin self);
 
     [DllImport(DllName, EntryPoint = "SDDestroy")]
     static extern void _Destroy(IntPtr self);

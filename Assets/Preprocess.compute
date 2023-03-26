@@ -1,0 +1,57 @@
+#pragma kernel Preprocess
+
+// Input
+sampler2D Input;
+bool IsLinear;
+
+// Output
+RWStructuredBuffer<uint> Output;
+
+// Predefined constant
+static const uint2 Size = 512;
+
+// Color space conversion between sRGB and linear space.
+// http://chilliant.blogspot.com/2012/08/srgb-approximations-for-hlsl.html
+float3 Preprocess_LinearToSRGB(float3 c)
+{
+    return max(1.055 * pow(saturate(c), 0.416666667) - 0.055, 0.0);
+}
+
+uint Float4ToByte4AsUInt(float4 v)
+{
+    uint4 i = v * 255;
+    return i.x + (i.y << 8) + (i.z << 16) + (i.w << 24);
+}
+
+float3 SampleInput(uint x, uint y)
+{
+    // UV (vertically flipped)
+    float2 uv = float2(0.5 + x, Size.y - 0.5 - y) / Size;
+
+    // UV gradients
+    float2 duv_dx = float2(1.0 / Size.x, 0);
+    float2 duv_dy = float2(0, -1.0 / Size.y);
+
+    // Texture sample
+    float3 rgb = tex2Dgrad(Input, uv, duv_dx, duv_dy).rgb;
+    if (IsLinear) rgb = Preprocess_LinearToSRGB(rgb);
+
+    return rgb;
+}
+
+[numthreads(8, 8, 1)]
+void Preprocess(uint2 id : SV_DispatchThreadID)
+{
+    uint x = id.x * 4;
+    uint y = id.y;
+
+    float3 s1 = SampleInput(x + 0, y);
+    float3 s2 = SampleInput(x + 1, y);
+    float3 s3 = SampleInput(x + 2, y);
+    float3 s4 = SampleInput(x + 3, y);
+
+    uint addr = (y * Size.x / 4 + id.x) * 3;
+    Output[addr + 0] = Float4ToByte4AsUInt(float4(s1.xyz, s2.x));
+    Output[addr + 1] = Float4ToByte4AsUInt(float4(s2.yz, s3.xy));
+    Output[addr + 2] = Float4ToByte4AsUInt(float4(s3.z, s4.xyz));
+}

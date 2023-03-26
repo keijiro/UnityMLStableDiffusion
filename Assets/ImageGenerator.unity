@@ -1997,6 +1997,7 @@ MonoBehaviour:
   _uiGenerate: {fileID: 221732682}
   _uiPreview: {fileID: 1157029743}
   _uiMessage: {fileID: 769265185}
+  _preprocess: {fileID: 7200000, guid: 7c06db8e339994c05bc2ad5e44c940de, type: 3}
 --- !u!4 &982358088
 Transform:
   m_ObjectHideFlags: 0
@@ -2192,9 +2193,9 @@ MonoBehaviour:
   m_UVRect:
     serializedVersion: 2
     x: 0
-    y: 1
+    y: 0
     width: 1
-    height: -1
+    height: 1
 --- !u!222 &1157029744
 CanvasRenderer:
   m_ObjectHideFlags: 0
