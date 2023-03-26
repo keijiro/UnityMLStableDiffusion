@@ -2,6 +2,7 @@
   "dependencies": {
     "com.unity.ugui": "1.0.0",
     "jp.keijiro.klak.motion": "1.0.2",
+    "jp.keijiro.klak.testtools": "1.0.4",
     "jp.keijiro.metamesh": "1.1.1",
     "jp.keijiro.metatex": "1.0.4"
   },
