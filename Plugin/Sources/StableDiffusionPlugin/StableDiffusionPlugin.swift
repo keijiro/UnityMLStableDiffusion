@@ -11,10 +11,10 @@ final class Plugin {
     var generated: CGImage?
 
     // Create a pipeline and load resources into it
-    init(resourcePath: String) throws {
+    init(resourcePath: String, computeUnits: MLComputeUnits) throws {
         // Compute unit selection (all)
         let mlConfig = MLModelConfiguration()
-        mlConfig.computeUnits = MLComputeUnits.all
+        mlConfig.computeUnits = computeUnits
 
         // Pipeline initialization
         let resourceURL = URL(filePath: resourcePath)
@@ -38,9 +38,10 @@ final class Plugin {
 }
 
 @_cdecl("SDCreate")
-public func SDCreate(resourcePath: OpaquePointer) -> OpaquePointer! {
+public func SDCreate(resourcePath: OpaquePointer, units: CInt) -> OpaquePointer! {
     let resourcePath = String(cString: UnsafePointer<CChar>(resourcePath))
-    if let plugin = try? Plugin(resourcePath: resourcePath) {
+    let units = MLComputeUnits(rawValue: Int(units))!
+    if let plugin = try? Plugin(resourcePath: resourcePath, computeUnits: units) {
         return OpaquePointer(Unmanaged.passRetained(plugin).toOpaque())
     }
     return nil;

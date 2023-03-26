@@ -21,8 +21,11 @@ public class Plugin : SafeHandleZeroOrMinusOneIsInvalid
 
     #region Public methods
 
-    public static Plugin Create(string resourcePath)
-      => _Create(resourcePath);
+    public enum ComputeUnits { Cpu, CpuAndGpu, All, CpuAndNE }
+
+    public static Plugin Create
+      (string resourcePath, ComputeUnits units = ComputeUnits.All)
+      => _Create(resourcePath, (int)units);
 
     public void SetConfig(string prompt, int steps, int seed, float guidance)
       => _SetConfig(this, prompt, steps, seed, guidance);
@@ -51,7 +54,7 @@ public class Plugin : SafeHandleZeroOrMinusOneIsInvalid
 #endif
 
     [DllImport(DllName, EntryPoint = "SDCreate")]
-    static extern Plugin _Create(string resourcePath);
+    static extern Plugin _Create(string resourcePath, int units);
 
     [DllImport(DllName, EntryPoint = "SDSetConfig")]
     static extern void _SetConfig
