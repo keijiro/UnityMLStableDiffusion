@@ -6,6 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/ImageGenerator.unity
+    path: Assets/StaticImageTest.unity
     guid: 5bc3af779b4754950ba839a483350f5a
   m_configObjects: {}
+  m_UseUCBPForAssetBundles: 0
