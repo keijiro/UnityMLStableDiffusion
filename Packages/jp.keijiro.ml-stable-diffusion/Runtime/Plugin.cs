@@ -3,7 +3,7 @@ using IntPtr = System.IntPtr;
 using Microsoft.Win32.SafeHandles;
 using System;
 
-namespace StableDiffusion {
+namespace MLStableDiffusion {
 
 public enum ComputeUnits { Cpu, CpuAndGpu, All, CpuAndNE }
 
@@ -75,4 +75,4 @@ public class Plugin : SafeHandleZeroOrMinusOneIsInvalid
     #endregion
 }
 
-} // namespace StableDiffusion
+} // namespace MLStableDiffusion

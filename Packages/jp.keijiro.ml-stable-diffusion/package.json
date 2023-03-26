@@ -1,0 +1,12 @@
+{
+    "author": "Keijiro Takahashi",
+    "dependencies": {},
+    "description": "Stable Diffusion plugin based on Apple's Core ML port",
+    "displayName": "Core ML Stable Diffusion",
+    "keywords": [ "unity" ],
+    "license": "SEE LICENSE in LICENSE",
+    "name": "jp.keijiro.ml-stable-diffusion",
+    "unity": "2023.1",
+    "unityRelease": "0f1",
+    "version": "0.1.0"
+}

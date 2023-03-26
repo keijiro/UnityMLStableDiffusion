@@ -476,7 +476,7 @@ PlayerSettings:
   enableInternalProfiler: 0
   logObjCUncaughtExceptions: 1
   enableCrashReportAPI: 0
-  cameraUsageDescription: 
+  cameraUsageDescription: Requires camera for video Input.
   locationUsageDescription: 
   microphoneUsageDescription: 
   bluetoothUsageDescription: 

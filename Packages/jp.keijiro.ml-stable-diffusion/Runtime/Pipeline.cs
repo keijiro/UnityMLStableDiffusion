@@ -2,7 +2,7 @@ using Unity.Collections;
 using UnityEngine.Rendering;
 using UnityEngine;
 
-namespace StableDiffusion {
+namespace MLStableDiffusion {
 
 public sealed class Pipeline : System.IDisposable
 {
@@ -102,4 +102,4 @@ public sealed class Pipeline : System.IDisposable
     #endregion
 }
 
-} // namespace StableDiffusion
+} // namespace MLStableDiffusion

@@ -62,6 +62,12 @@
       },
       "url": "https://registry.npmjs.com"
     },
+    "jp.keijiro.ml-stable-diffusion": {
+      "version": "file:jp.keijiro.ml-stable-diffusion",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.unity.modules.audio": {
       "version": "1.0.0",
       "depth": 1,

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Stopwatch = System.Diagnostics.Stopwatch;
-using ComputeUnits = StableDiffusion.ComputeUnits;
+using ComputeUnits = MLStableDiffusion.ComputeUnits;
 
 public sealed class Tester : MonoBehaviour
 {
@@ -34,7 +34,7 @@ public sealed class Tester : MonoBehaviour
     string ResourcePath
       => Application.streamingAssetsPath + "/" + _resourceDir;
 
-    StableDiffusion.Pipeline _pipeline;
+    MLStableDiffusion.Pipeline _pipeline;
     RenderTexture _generated;
     Awaitable _task;
 
@@ -48,7 +48,7 @@ public sealed class Tester : MonoBehaviour
           "Loading resources...\n(This takes a few minites for the first time.)";
         if (_uiGenerate != null) _uiGenerate.interactable = false;
 
-        _pipeline = new StableDiffusion.Pipeline(_preprocess);
+        _pipeline = new MLStableDiffusion.Pipeline(_preprocess);
         await _pipeline.InitializeAsync(ResourcePath, _computeUnits);
 
         _uiMessage.text = "";
