@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.unity.mathematics": {
+      "version": "1.2.6",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
     "com.unity.ugui": {
       "version": "1.0.0",
       "depth": 0,
@@ -8,6 +15,40 @@
         "com.unity.modules.ui": "1.0.0",
         "com.unity.modules.imgui": "1.0.0"
       }
+    },
+    "jp.keijiro.klak.lineargradient": {
+      "version": "1.0.2",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://registry.npmjs.com"
+    },
+    "jp.keijiro.klak.motion": {
+      "version": "1.0.2",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.mathematics": "1.2.1"
+      },
+      "url": "https://registry.npmjs.com"
+    },
+    "jp.keijiro.metamesh": {
+      "version": "1.1.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.mathematics": "1.2.1"
+      },
+      "url": "https://registry.npmjs.com"
+    },
+    "jp.keijiro.metatex": {
+      "version": "1.0.4",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "jp.keijiro.klak.lineargradient": "1.0.2"
+      },
+      "url": "https://registry.npmjs.com"
     },
     "com.unity.modules.imgui": {
       "version": "1.0.0",

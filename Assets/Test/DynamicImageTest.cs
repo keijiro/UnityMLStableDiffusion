@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Stopwatch = System.Diagnostics.Stopwatch;
 
-public sealed class StaticImageTest : MonoBehaviour
+public sealed class DynamicImageTest : MonoBehaviour
 {
     #region Editable attributes
 
@@ -13,7 +13,6 @@ public sealed class StaticImageTest : MonoBehaviour
     [SerializeField] Slider _uiStepCount = null;
     [SerializeField] Slider _uiSeed = null;
     [SerializeField] Slider _uiGuidance = null;
-    [SerializeField] Button _uiGenerate = null;
     [SerializeField] RawImage _uiPreview = null;
     [SerializeField] Text _uiMessage = null;
 
@@ -32,6 +31,7 @@ public sealed class StaticImageTest : MonoBehaviour
 
     StableDiffusion.Pipeline _pipeline;
     RenderTexture _generated;
+    Awaitable _task;
 
     #endregion
 
@@ -41,22 +41,16 @@ public sealed class StaticImageTest : MonoBehaviour
     {
         _uiMessage.text =
           "Loading resources...\n(This takes a few minites for the first time.)";
-        _uiGenerate.interactable = false;
 
         _pipeline = new StableDiffusion.Pipeline(_preprocess);
         await _pipeline.InitializeAsync(ResourcePath);
 
         _uiMessage.text = "";
-        _uiGenerate.interactable = true;
-
         _generated = new RenderTexture(512, 512, 0);
     }
 
     async Awaitable RunPipelineAsync()
     {
-        _uiMessage.text = "Generating...";
-        _uiGenerate.interactable = false;
-
         _pipeline.Prompt = _uiPrompt.text;
         _pipeline.Strength = _uiStrength.value;
         _pipeline.StepCount = (int)_uiStepCount.value;
@@ -70,26 +64,24 @@ public sealed class StaticImageTest : MonoBehaviour
 
         _uiMessage.text = $"Generation time: {time.Elapsed.TotalSeconds:f2} sec";
         _uiPreview.texture = _generated;
-        _uiGenerate.interactable = true;
     }
-
-    #endregion
-
-    #region UI callback
-
-    public void OnClickGenerate() => RunPipelineAsync();
 
     #endregion
 
     #region MonoBehaviour implementation
 
-    void Start() => SetUpPipelineAsync();
+    void Start() => _task = SetUpPipelineAsync();
 
     void OnDestroy()
     {
         _pipeline?.Dispose();
         Destroy(_generated);
         (_pipeline, _generated) = (null, null);
+    }
+
+    void Update()
+    {
+        if (_task.IsCompleted) _task = RunPipelineAsync();
     }
 
     #endregion

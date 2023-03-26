@@ -1,5 +1,17 @@
 {
   "dependencies": {
-    "com.unity.ugui": "1.0.0"
-  }
+    "com.unity.ugui": "1.0.0",
+    "jp.keijiro.klak.motion": "1.0.2",
+    "jp.keijiro.metamesh": "1.1.1",
+    "jp.keijiro.metatex": "1.0.4"
+  },
+  "scopedRegistries": [
+    {
+      "name": "Keijiro",
+      "url": "https://registry.npmjs.com",
+      "scopes": [
+        "jp.keijiro"
+      ]
+    }
+  ]
 }

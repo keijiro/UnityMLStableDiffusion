@@ -1,0 +1,63 @@
+fileFormatVersion: 2
+guid: 8b413ccc44ba44a5aa900ef276c07935
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: a8b5f06e412d587cbac1226722904238, type: 3}
+  _shape: 8
+  _plane:
+    Size:
+      x: 1
+      y: 1
+    Subdivisions:
+      x: 2
+      y: 2
+    Axis: 1
+    DoubleSided: 0
+  _box:
+    Width: 1
+    Height: 1
+    Depth: 1
+  _sphere:
+    Radius: 1
+    Columns: 24
+    Rows: 12
+    Axis: 1
+  _icosphere:
+    Radius: 1
+    Subdivision: 2
+  _cylinder:
+    TopRadius: 1
+    BottomRadius: 1
+    Height: 1
+    Columns: 24
+    Rows: 12
+    Axis: 1
+    Caps: 1
+  _roundedBox:
+    Width: 1
+    Height: 1
+    Depth: 1
+    Divisions: 3
+    Radius: 0.1
+  _ring:
+    Radius: 1
+    Width: 0.1
+    Angle: 1
+    Segments: 32
+    Axis: 2
+    DoubleSided: 0
+  _disc:
+    Radius: 1
+    Angle: 1
+    Segments: 32
+    Axis: 2
+    DoubleSided: 0
+  _teapot:
+    Subdivision: 5
+  _generateLightmapUVs: 0
+  _readWriteMeshes: 0

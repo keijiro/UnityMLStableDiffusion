@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: ee276930605fa4730ac92e983b73c40f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _source: {instanceID: 0}
+  - _uiPrompt: {instanceID: 0}
+  - _uiStrength: {instanceID: 0}
+  - _uiStepCount: {instanceID: 0}
+  - _uiSeed: {instanceID: 0}
+  - _uiGuidance: {instanceID: 0}
+  - _uiPreview: {instanceID: 0}
+  - _uiMessage: {instanceID: 0}
+  - _preprocess: {fileID: 7200000, guid: 7c06db8e339994c05bc2ad5e44c940de, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
