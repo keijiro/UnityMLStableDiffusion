@@ -1,5 +1,5 @@
-Stable Diffusion Plugin for Unity
-=================================
+Unity Core ML Stable Diffusion Plugin
+=====================================
 
 Stable Diffusion plugin for Unity, based on [Apple's Core ML port]. You can run
 the model on-editor and at-runtime without needing any extra components.
