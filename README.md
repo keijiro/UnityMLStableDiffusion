@@ -9,7 +9,7 @@ the model on-editor and at-runtime without needing any extra components.
 System Requirements
 -------------------
 
-- Unity 2022.2 or later
+- Unity 2023.1 or later
 - Apple Silicon Mac (editor/runtime support) with macOS 13.1 or later
 - iPad Pro with Apple silicon (runtime support) with iOS 16.2 or later
 
