@@ -85,7 +85,7 @@ public sealed class Tester : MonoBehaviour
 
     #region UI callback
 
-    public void OnClickGenerate() => RunPipelineAsync();
+    public async void OnClickGenerate() => await RunPipelineAsync();
 
     #endregion
 
