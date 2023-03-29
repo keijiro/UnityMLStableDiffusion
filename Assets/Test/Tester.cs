@@ -73,7 +73,7 @@ public sealed class Tester : MonoBehaviour
 
         var time = new Stopwatch();
         time.Start();
-        await _pipeline.RunAsync(_source, _generated);
+        await _pipeline.RunAsync(_source, _generated, destroyCancellationToken);
         time.Stop();
 
         _uiMessage.text = $"Generation time: {time.Elapsed.TotalSeconds:f2} sec";

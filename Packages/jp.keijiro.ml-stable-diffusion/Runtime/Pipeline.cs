@@ -1,6 +1,7 @@
 using Unity.Collections;
 using UnityEngine.Rendering;
 using UnityEngine;
+using CancellationToken = System.Threading.CancellationToken;
 
 namespace MLStableDiffusion {
 
@@ -58,9 +59,13 @@ public sealed class Pipeline : System.IDisposable
 
     public void Dispose()
     {
-        _buffer.reorder.Release();
-        _buffer.source.Dispose();
-        Object.Destroy(_buffer.output);
+        _buffer.reorder?.Release();
+        _buffer.reorder = null;
+
+        if (_buffer.source.IsCreated) _buffer.source.Dispose();
+
+        if (_buffer.output != null) Object.Destroy(_buffer.output);
+        _buffer.output = null;
 
         _plugin?.Dispose();
         _plugin = null;
@@ -75,7 +80,8 @@ public sealed class Pipeline : System.IDisposable
         await Awaitable.MainThreadAsync();
     }
 
-    public async Awaitable RunAsync(Texture source, RenderTexture dest)
+    public async Awaitable RunAsync
+      (Texture source, RenderTexture dest, CancellationToken cancel)
     {
         // Pipeline configuration
         _plugin.SetConfig(Prompt, StepCount, Seed, GuidanceScale);
@@ -92,6 +98,7 @@ public sealed class Pipeline : System.IDisposable
             _plugin.RunGenerator();
 
         await Awaitable.MainThreadAsync();
+        cancel.ThrowIfCancellationRequested();
 
         // Load into a temporary texture and flip it into the destination.
         _buffer.output.LoadRawTextureData(_plugin.ImageBufferPointer, Width * Height * 3);
