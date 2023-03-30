@@ -34,10 +34,10 @@ Before running the sample project, you must put the model files in the
 It takes a long time (a few minutes) for the first run. After this
 initialization step, it only takes a few tens of seconds to generate an image.
 
-Further Samples
+Sample Projects
 ---------------
 
 ![gif](https://user-images.githubusercontent.com/343936/228760795-9e712684-2ee6-4e63-9241-06d8aa125a17.gif)
 
-- [Flipbook3](https://github.com/keijiro/Flipbook3): An example showing how to
-  use it with a real-time 3D scene.
+- [Flipbook3](https://github.com/keijiro/Flipbook3): Running the image-to-image
+  pipeline with a real-time 3D scene.
