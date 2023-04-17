@@ -6,5 +6,5 @@ public sealed class SliderValueLabel : MonoBehaviour
     [SerializeField] bool isInteger = false;
 
     public void OnValueChanged(float value)
-      => GetComponent<Text>().text = isInteger ? $"{(int)value}" : $"{value:f1}";
+      => GetComponent<Text>().text = isInteger ? $"{(int)value}" : $"{value:f2}";
 }
