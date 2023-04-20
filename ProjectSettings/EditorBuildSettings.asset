@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/TestWebcam.unity
+    path: Assets/Scenes/WebcamToImage.unity
     guid: b233266ec7e3f49839de82b1a3ff66ef
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
