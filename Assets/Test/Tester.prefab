@@ -3958,6 +3958,10 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: Contours
       m_Image: {fileID: 0}
+    - m_Text: Vertical Split
+      m_Image: {fileID: 0}
+    - m_Text: Horizontal Split
+      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

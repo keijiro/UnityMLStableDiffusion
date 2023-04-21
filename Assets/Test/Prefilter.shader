@@ -54,6 +54,18 @@ float4 FragmentContours(float4 pos : SV_Position, float2 uv : TEXCOORD0) : SV_Ta
     return float4(g, g, g, 1);
 }
 
+float4 FragmentVerticalSplit(float4 pos : SV_Position, float2 uv : TEXCOORD0) : SV_Target
+{
+    uv = uv.x < 0.5 ? uv : float2(uv.x - 0.5, 1 - uv.y);
+    return tex2D(_MainTex, uv);
+}
+
+float4 FragmentHorizontalSplit(float4 pos : SV_Position, float2 uv : TEXCOORD0) : SV_Target
+{
+    uv = uv.y < 0.5 ? uv : float2(1 - uv.x, uv.y - 0.5);
+    return tex2D(_MainTex, uv);
+}
+
     ENDCG
     SubShader
     {
@@ -84,6 +96,20 @@ float4 FragmentContours(float4 pos : SV_Position, float2 uv : TEXCOORD0) : SV_Ta
             CGPROGRAM
             #pragma vertex Vertex
             #pragma fragment FragmentContours
+            ENDCG
+        }
+        Pass
+        {
+            CGPROGRAM
+            #pragma vertex Vertex
+            #pragma fragment FragmentVerticalSplit
+            ENDCG
+        }
+        Pass
+        {
+            CGPROGRAM
+            #pragma vertex Vertex
+            #pragma fragment FragmentHorizontalSplit
             ENDCG
         }
     }
