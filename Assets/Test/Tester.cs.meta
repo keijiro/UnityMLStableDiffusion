@@ -10,9 +10,12 @@ MonoImporter:
   - _uiStepCount: {instanceID: 0}
   - _uiSeed: {instanceID: 0}
   - _uiGuidance: {instanceID: 0}
+  - _uiPrefilter: {instanceID: 0}
+  - _uiGenerate: {instanceID: 0}
   - _uiPreview: {instanceID: 0}
   - _uiMessage: {instanceID: 0}
-  - _preprocess: {fileID: 7200000, guid: 7c06db8e339994c05bc2ad5e44c940de, type: 3}
+  - _preprocessShader: {fileID: 7200000, guid: 7c06db8e339994c05bc2ad5e44c940de, type: 3}
+  - _prefilterShader: {fileID: 4800000, guid: ab067bdb15699488da1bcd889317b5e8, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

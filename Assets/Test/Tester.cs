@@ -1,31 +1,35 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Stopwatch = System.Diagnostics.Stopwatch;
+using ImageSource = Klak.TestTools.ImageSource;
 using ComputeUnits = MLStableDiffusion.ComputeUnits;
 
 public sealed class Tester : MonoBehaviour
 {
     #region Editable attributes
 
-    [SerializeField] Texture _source = null;
+    [SerializeField] ImageSource _source = null;
     [Space]
     [SerializeField] string _resourceDir = "StableDiffusion";
-    [SerializeField] ComputeUnits _computeUnits = ComputeUnits.All;
+    [SerializeField] ComputeUnits _computeUnits = ComputeUnits.CpuAndNE;
     [Space]
     [SerializeField] InputField _uiPrompt = null;
     [SerializeField] Slider _uiStrength = null;
     [SerializeField] Slider _uiStepCount = null;
     [SerializeField] Slider _uiSeed = null;
     [SerializeField] Slider _uiGuidance = null;
+    [SerializeField] Dropdown _uiPrefilter = null;
     [SerializeField] Button _uiGenerate = null;
     [SerializeField] RawImage _uiPreview = null;
+    [SerializeField] RawImage _uiResult = null;
     [SerializeField] Text _uiMessage = null;
 
     #endregion
 
     #region Project asset references
 
-    [SerializeField, HideInInspector] ComputeShader _preprocess = null;
+    [SerializeField, HideInInspector] ComputeShader _preprocessShader = null;
+    [SerializeField, HideInInspector] Shader _prefilterShader = null;
 
     #endregion
 
@@ -35,6 +39,7 @@ public sealed class Tester : MonoBehaviour
       => Application.streamingAssetsPath + "/" + _resourceDir;
 
     MLStableDiffusion.Pipeline _pipeline;
+    (Material material, RenderTexture texture) _prefilter;
     RenderTexture _generated;
     Awaitable _task;
 
@@ -48,13 +53,11 @@ public sealed class Tester : MonoBehaviour
           "Loading resources...\n(This takes a few minites for the first time.)";
         if (_uiGenerate != null) _uiGenerate.interactable = false;
 
-        _pipeline = new MLStableDiffusion.Pipeline(_preprocess);
+        _pipeline = new MLStableDiffusion.Pipeline(_preprocessShader);
         await _pipeline.InitializeAsync(ResourcePath, _computeUnits);
 
         _uiMessage.text = "";
         if (_uiGenerate != null) _uiGenerate.interactable = true;
-
-        _generated = new RenderTexture(512, 512, 0);
     }
 
     async Awaitable RunPipelineAsync()
@@ -73,11 +76,10 @@ public sealed class Tester : MonoBehaviour
 
         var time = new Stopwatch();
         time.Start();
-        await _pipeline.RunAsync(_source, _generated, destroyCancellationToken);
+        await _pipeline.RunAsync(_prefilter.texture, _generated, destroyCancellationToken);
         time.Stop();
 
         _uiMessage.text = $"Generation time: {time.Elapsed.TotalSeconds:f2} sec";
-        _uiPreview.texture = _generated;
         if (_uiGenerate != null) _uiGenerate.interactable = true;
     }
 
@@ -91,19 +93,35 @@ public sealed class Tester : MonoBehaviour
 
     #region MonoBehaviour implementation
 
-    void Start() => _task = SetUpPipelineAsync();
+    void Start()
+    {
+        _prefilter.material = new Material(_prefilterShader);
+        _prefilter.texture = new RenderTexture(512, 512, 0);
+        _generated = new RenderTexture(512, 512, 0);
+
+        _uiPreview.texture = _prefilter.texture;
+        _uiResult.texture = _generated;
+
+        _task = SetUpPipelineAsync();
+    }
 
     void OnDestroy()
     {
         _pipeline?.Dispose();
+        _pipeline = null;
+
+        Destroy(_prefilter.material);
+        Destroy(_prefilter.texture);
+        _prefilter = (null, null);
+
         Destroy(_generated);
-        (_pipeline, _generated) = (null, null);
+        _generated = null;
     }
 
     void Update()
     {
-        if (_uiGenerate == null && _task.IsCompleted)
-            _task = RunPipelineAsync();
+        Graphics.Blit(_source.Texture, _prefilter.texture, _prefilter.material, _uiPrefilter.value);
+        if (_uiGenerate == null && _task.IsCompleted) _task = RunPipelineAsync();
     }
 
     #endregion
