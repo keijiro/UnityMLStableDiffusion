@@ -1855,7 +1855,7 @@ Transform:
   - {fileID: 8302256584766911394}
   - {fileID: 6103188393069794669}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4280260558124518645
 GameObject:
@@ -3955,6 +3955,8 @@ MonoBehaviour:
     - m_Text: Monochrome
       m_Image: {fileID: 0}
     - m_Text: Invert
+      m_Image: {fileID: 0}
+    - m_Text: Contours
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
