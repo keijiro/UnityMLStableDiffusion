@@ -16,9 +16,9 @@
         "com.unity.modules.imgui": "1.0.0"
       }
     },
-    "jp.keijiro.klak.lineargradient": {
-      "version": "1.0.2",
-      "depth": 1,
+    "jp.keijiro.danish-statues": {
+      "version": "1.0.0",
+      "depth": 0,
       "source": "registry",
       "dependencies": {},
       "url": "https://registry.npmjs.com"
@@ -41,24 +41,6 @@
         "com.unity.modules.unitywebrequest": "1.0.0",
         "com.unity.modules.unitywebrequesttexture": "1.0.0",
         "com.unity.modules.video": "1.0.0"
-      },
-      "url": "https://registry.npmjs.com"
-    },
-    "jp.keijiro.metamesh": {
-      "version": "1.1.1",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.mathematics": "1.2.1"
-      },
-      "url": "https://registry.npmjs.com"
-    },
-    "jp.keijiro.metatex": {
-      "version": "1.0.4",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "jp.keijiro.klak.lineargradient": "1.0.2"
       },
       "url": "https://registry.npmjs.com"
     },
