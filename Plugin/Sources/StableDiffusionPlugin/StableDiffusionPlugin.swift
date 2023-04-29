@@ -20,6 +20,7 @@ final class Plugin {
         let resourceURL = URL(filePath: resourcePath)
         pipeline = try StableDiffusionPipeline(
             resourcesAt: resourceURL,
+            controlNet: [],
             configuration: mlConfig,
             disableSafety: true,
             reduceMemory: false)
