@@ -2,13 +2,11 @@
 
 // Input
 sampler2D Input;
+uint2 Size;
 bool IsLinear;
 
 // Output
 RWStructuredBuffer<uint> Output;
-
-// Predefined constant
-static const uint2 Size = 512;
 
 // Color space conversion between sRGB and linear space.
 // http://chilliant.blogspot.com/2012/08/srgb-approximations-for-hlsl.html

@@ -73,6 +73,8 @@ public func SDGenerate(_ plugin: OpaquePointer) {
 public func SDGenerateFromImage(
     _ plugin: OpaquePointer,
     image: OpaquePointer,
+    width: CInt,
+    height: CInt,
     strength: CFloat
 ) {
     let plugin = Unmanaged<Plugin>.fromOpaque(UnsafeRawPointer(plugin)).takeUnretainedValue()
@@ -81,9 +83,9 @@ public func SDGenerateFromImage(
     // Raw pointer to CGImage object
     let buffer = vImage.PixelBuffer<vImage.Interleaved8x3>(
         data: pointer,
-        width: 512,
-        height: 512,
-        byteCountPerRow: 512 * 3)
+        width: Int(width),
+        height: Int(height),
+        byteCountPerRow: Int(width) * 3)
     let format = vImage_CGImageFormat(
         bitsPerComponent: 8,
         bitsPerPixel: 3 * 8,

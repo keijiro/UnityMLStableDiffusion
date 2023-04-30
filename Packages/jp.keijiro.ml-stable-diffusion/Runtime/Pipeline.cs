@@ -9,9 +9,8 @@ public sealed class Pipeline : System.IDisposable
 {
     #region Public properties
 
-    public const int Width = 512;
-    public const int Height = 512;
-
+    public int Width { get; private set; }
+    public int Height { get; private set; }
     public string Prompt { get; set; }
     public float Strength { get; set; }
     public int StepCount { get; set; }
@@ -35,6 +34,7 @@ public sealed class Pipeline : System.IDisposable
         // Reordering compute shader invocation
         _preprocess.SetTexture(0, "Input", source);
         _preprocess.SetBuffer(0, "Output", _buffer.reorder);
+        _preprocess.SetInts("Size", Width, Height);
         _preprocess.SetBool("IsLinear", isLinear);
         _preprocess.Dispatch(0, Width / 4 / 8, Height / 8, 1);
 
@@ -48,14 +48,7 @@ public sealed class Pipeline : System.IDisposable
     #region Public members
 
     public Pipeline(ComputeShader preprocess)
-    {
-        _preprocess = preprocess;
-        _buffer.reorder = new GraphicsBuffer(GraphicsBuffer.Target.Structured,
-                                             Width * Height * 3 / 4, 4);
-        _buffer.source = new NativeArray<byte>(Width * Height * 3, Allocator.Persistent,
-                                               NativeArrayOptions.UninitializedMemory);
-        _buffer.output = new Texture2D(Width, Height, TextureFormat.RGB24, false);
-    }
+      => _preprocess = preprocess;
 
     public void Dispose()
     {
@@ -71,12 +64,22 @@ public sealed class Pipeline : System.IDisposable
         _plugin = null;
     }
 
-    public async Awaitable InitializeAsync
-      (string resourcePath, ComputeUnits units = ComputeUnits.All)
+    public async Awaitable InitializeAsync(ResourceInfo res, ComputeUnits units)
     {
+        // Model information
+        Width = res.ModelWidth;
+        Height = res.ModelHeight;
+
+        // Buffer allocation
+        _buffer.reorder = new GraphicsBuffer(GraphicsBuffer.Target.Structured,
+                                             Width * Height * 3 / 4, 4);
+        _buffer.source = new NativeArray<byte>(Width * Height * 3, Allocator.Persistent,
+                                               NativeArrayOptions.UninitializedMemory);
+        _buffer.output = new Texture2D(Width, Height, TextureFormat.RGB24, false);
+
         // Pipeline initialization on the background thread
         await Awaitable.BackgroundThreadAsync();
-        _plugin = Plugin.Create(resourcePath, units);
+        _plugin = Plugin.Create(res.ModelPath, units);
         await Awaitable.MainThreadAsync();
     }
 
@@ -93,7 +96,7 @@ public sealed class Pipeline : System.IDisposable
         await Awaitable.BackgroundThreadAsync();
 
         if (source)
-            _plugin.RunGeneratorFromImage(_buffer.source.AsReadOnlySpan(), Strength);
+            _plugin.RunGeneratorFromImage(_buffer.source.AsReadOnlySpan(), Width, Height, Strength);
         else
             _plugin.RunGenerator();
 

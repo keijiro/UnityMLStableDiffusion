@@ -33,10 +33,10 @@ public class Plugin : SafeHandleZeroOrMinusOneIsInvalid
       => _Generate(this);
 
     public unsafe void RunGeneratorFromImage
-      (ReadOnlySpan<byte> image, float strength)
+      (ReadOnlySpan<byte> image, int width, int height, float strength)
     {
         fixed (byte* ptr = image)
-          _GenerateFromImage(this, (IntPtr)ptr, strength);
+          _GenerateFromImage(this, (IntPtr)ptr, width, height, strength);
     }
 
     public IntPtr ImageBufferPointer
@@ -64,7 +64,7 @@ public class Plugin : SafeHandleZeroOrMinusOneIsInvalid
 
     [DllImport(DllName, EntryPoint = "SDGenerateFromImage")]
     static extern void _GenerateFromImage
-      (Plugin self, IntPtr image, float strength);
+      (Plugin self, IntPtr image, int width, int height, float strength);
 
     [DllImport(DllName, EntryPoint = "SDGetImage")]
     static extern IntPtr _GetImage(Plugin self);

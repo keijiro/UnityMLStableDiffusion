@@ -11,6 +11,7 @@ public sealed class Tester : MonoBehaviour
     [SerializeField] ImageSource _source = null;
     [Space]
     [SerializeField] string _resourceDir = "StableDiffusion";
+    [SerializeField] Vector2Int _modelSize = new Vector2Int(512, 512);
     [SerializeField] ComputeUnits _computeUnits = ComputeUnits.CpuAndNE;
     [Space]
     [SerializeField] InputField _uiPrompt = null;
@@ -38,6 +39,10 @@ public sealed class Tester : MonoBehaviour
     string ResourcePath
       => Application.streamingAssetsPath + "/" + _resourceDir;
 
+    MLStableDiffusion.ResourceInfo ResourceInfo
+      => MLStableDiffusion.ResourceInfo.FixedSizeModel
+           (ResourcePath, _modelSize.x, _modelSize.y);
+
     MLStableDiffusion.Pipeline _pipeline;
     (Material material, RenderTexture texture) _prefilter;
     RenderTexture _generated;
@@ -54,7 +59,7 @@ public sealed class Tester : MonoBehaviour
         if (_uiGenerate != null) _uiGenerate.interactable = false;
 
         _pipeline = new MLStableDiffusion.Pipeline(_preprocessShader);
-        await _pipeline.InitializeAsync(ResourcePath, _computeUnits);
+        await _pipeline.InitializeAsync(ResourceInfo, _computeUnits);
 
         _uiMessage.text = "";
         if (_uiGenerate != null) _uiGenerate.interactable = true;
@@ -96,8 +101,8 @@ public sealed class Tester : MonoBehaviour
     void Start()
     {
         _prefilter.material = new Material(_prefilterShader);
-        _prefilter.texture = new RenderTexture(512, 512, 0);
-        _generated = new RenderTexture(512, 512, 0);
+        _prefilter.texture = new RenderTexture(_modelSize.x, _modelSize.y, 0);
+        _generated = new RenderTexture(_modelSize.x, _modelSize.y, 0);
 
         _uiPreview.texture = _prefilter.texture;
         _uiResult.texture = _generated;
