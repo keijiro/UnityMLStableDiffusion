@@ -8,7 +8,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ugui": {
-      "version": "1.0.0",
+      "version": "2.0.0",
       "depth": 0,
       "source": "builtin",
       "dependencies": {
@@ -24,7 +24,7 @@
       "url": "https://registry.npmjs.com"
     },
     "jp.keijiro.klak.motion": {
-      "version": "1.0.2",
+      "version": "1.1.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -33,7 +33,7 @@
       "url": "https://registry.npmjs.com"
     },
     "jp.keijiro.klak.testtools": {
-      "version": "1.1.0",
+      "version": "1.2.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {

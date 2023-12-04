@@ -1,9 +1,9 @@
 {
   "dependencies": {
-    "com.unity.ugui": "1.0.0",
+    "com.unity.ugui": "2.0.0",
     "jp.keijiro.danish-statues": "1.0.0",
-    "jp.keijiro.klak.motion": "1.0.2",
-    "jp.keijiro.klak.testtools": "1.1.0"
+    "jp.keijiro.klak.motion": "1.1.0",
+    "jp.keijiro.klak.testtools": "1.2.0"
   },
   "scopedRegistries": [
     {
