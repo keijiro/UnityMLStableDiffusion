@@ -125,7 +125,7 @@ public sealed class Tester : MonoBehaviour
 
     void Update()
     {
-        Graphics.Blit(_source.Texture, _prefilter.texture, _prefilter.material, _uiPrefilter.value);
+        Graphics.Blit(_source.AsTexture, _prefilter.texture, _prefilter.material, _uiPrefilter.value);
         if (_uiGenerate == null && _task.IsCompleted) _task = RunPipelineAsync();
     }
 
