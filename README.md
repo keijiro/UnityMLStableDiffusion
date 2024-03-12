@@ -51,6 +51,21 @@ When using "CPU and GPU" mode, you should use the "original" model instead of
 the "split_einsum" model. Please overwrite the `StreamingAssets/StableDiffusion`
 directory with the `original/compiled` directory.
 
+LCM (SD-Turbo) Support
+----------------------
+
+You can use [SD-Turbo] and other LCMs (latent consistency models) by setting
+`Pipeline.Scheduler` to `Lcm`. You might also have to change `StepCount` to 1~4
+and `GuidanceScale` to 1~2. Please refer to the model description to know the
+correct settings.
+
+You can download the [pre-converted SD-Turbo model] from my Hugging Face
+repository.
+
+[SD-Turbo]: https://huggingface.co/stabilityai/sd-turbo
+[pre-converted SD-Turbo model]:
+  https://huggingface.co/keijiro-tk/coreml-sd-turbo
+
 Sample Projects
 ---------------
 
