@@ -28,7 +28,6 @@ final class Plugin {
 
         // Initial configuration
         config = StableDiffusionPipeline.Configuration(prompt: "")
-        config.schedulerType = StableDiffusionScheduler.dpmSolverMultistepScheduler
     }
 
     // Run the pipeline and generate an image
@@ -52,12 +51,14 @@ public func SDCreate(resourcePath: OpaquePointer, units: CInt) -> OpaquePointer!
 public func SDSetConfig(
     _ plugin: OpaquePointer,
     prompt: OpaquePointer,
+    scheduler: CInt,
     stepCount: CInt,
     seed: CInt,
     guidanceScale: CFloat
 ) {
     let plugin = Unmanaged<Plugin>.fromOpaque(UnsafeRawPointer(plugin)).takeUnretainedValue()
     plugin.config.prompt = String(cString: UnsafePointer<CChar>(prompt))
+    plugin.config.schedulerType = StableDiffusionScheduler(rawValue: Int(scheduler))!
     plugin.config.stepCount = Int(stepCount)
     plugin.config.seed = UInt32(seed)
     plugin.config.guidanceScale = guidanceScale

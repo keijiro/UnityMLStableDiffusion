@@ -13,6 +13,7 @@ public sealed class Pipeline : System.IDisposable
     public int Height { get; private set; }
     public string Prompt { get; set; }
     public float Strength { get; set; }
+    public Scheduler Scheduler { get; set; }
     public int StepCount { get; set; }
     public int Seed { get; set; }
     public float GuidanceScale { get; set; }
@@ -87,7 +88,7 @@ public sealed class Pipeline : System.IDisposable
       (Texture source, RenderTexture dest, CancellationToken cancel)
     {
         // Pipeline configuration
-        _plugin.SetConfig(Prompt, StepCount, Seed, GuidanceScale);
+        _plugin.SetConfig(Prompt, Scheduler, StepCount, Seed, GuidanceScale);
 
         // Source texture async readback
         if (source) await ReadbackSourceAsync(source);

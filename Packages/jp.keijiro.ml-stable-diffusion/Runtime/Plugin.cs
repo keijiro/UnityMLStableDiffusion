@@ -6,6 +6,7 @@ using System;
 namespace MLStableDiffusion {
 
 public enum ComputeUnits { Cpu, CpuAndGpu, All, CpuAndNE }
+public enum Scheduler { Pndm, Dpmpp, Lcm }
 
 public class Plugin : SafeHandleZeroOrMinusOneIsInvalid
 {
@@ -26,8 +27,9 @@ public class Plugin : SafeHandleZeroOrMinusOneIsInvalid
     public static Plugin Create(string resourcePath, ComputeUnits units)
       => _Create(resourcePath, (int)units);
 
-    public void SetConfig(string prompt, int steps, int seed, float guidance)
-      => _SetConfig(this, prompt, steps, seed, guidance);
+    public void SetConfig
+      (string prompt, Scheduler scheduler, int steps, int seed, float guidance)
+      => _SetConfig(this, prompt, (int)scheduler, steps, seed, guidance);
 
     public void RunGenerator()
       => _Generate(this);
@@ -57,7 +59,8 @@ public class Plugin : SafeHandleZeroOrMinusOneIsInvalid
 
     [DllImport(DllName, EntryPoint = "SDSetConfig")]
     static extern void _SetConfig
-      (Plugin self, string prompt, int steps, int seed, float guidance);
+      (Plugin self, string prompt,
+       int scheduler, int steps, int seed, float guidance);
 
     [DllImport(DllName, EntryPoint = "SDGenerate")]
     static extern void _Generate(Plugin self);

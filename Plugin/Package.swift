@@ -15,7 +15,7 @@ let package = Package(
             targets: ["StableDiffusionPlugin"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/ml-stable-diffusion.git", from: "1.1.0")
+        .package(url: "https://github.com/keijiro/ml-stable-diffusion.git", from: "1.2.0")
     ],
     targets: [
         .target(

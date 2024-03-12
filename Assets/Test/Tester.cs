@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using Stopwatch = System.Diagnostics.Stopwatch;
 using ImageSource = Klak.TestTools.ImageSource;
 using ComputeUnits = MLStableDiffusion.ComputeUnits;
+using Scheduler = MLStableDiffusion.Scheduler;
 
 public sealed class Tester : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public sealed class Tester : MonoBehaviour
     [SerializeField] string _resourceDir = "StableDiffusion";
     [SerializeField] Vector2Int _modelSize = new Vector2Int(512, 512);
     [SerializeField] ComputeUnits _computeUnits = ComputeUnits.CpuAndNE;
+    [SerializeField] Scheduler _scheduler = Scheduler.Dpmpp;
     [Space]
     [SerializeField] InputField _uiPrompt = null;
     [SerializeField] Slider _uiStrength = null;
@@ -75,6 +77,7 @@ public sealed class Tester : MonoBehaviour
 
         _pipeline.Prompt = _uiPrompt.text;
         _pipeline.Strength = _uiStrength.value;
+        _pipeline.Scheduler = _scheduler;
         _pipeline.StepCount = (int)_uiStepCount.value;
         _pipeline.Seed = (int)_uiSeed.value;
         _pipeline.GuidanceScale = _uiGuidance.value;

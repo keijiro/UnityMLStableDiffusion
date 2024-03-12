@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using ComputeUnits = MLStableDiffusion.ComputeUnits;
+using Scheduler = MLStableDiffusion.Scheduler;
 using OperationCanceledException = System.OperationCanceledException;
 
 public sealed class Benchmark : MonoBehaviour
@@ -12,6 +13,7 @@ public sealed class Benchmark : MonoBehaviour
     [SerializeField] ComputeUnits _computeUnits = ComputeUnits.CpuAndNE;
     [Space]
     [SerializeField] string _prompt = "a dog";
+    [SerializeField] Scheduler _scheduler = Scheduler.Dpmpp;
     [SerializeField] int _stepCount = 4;
     [SerializeField] float _guidance = 10;
     [Space]
@@ -43,7 +45,8 @@ public sealed class Benchmark : MonoBehaviour
     async void Start()
     {
         _pipeline = new MLStableDiffusion.Pipeline(_preprocessShader)
-         { Prompt = _prompt, StepCount = _stepCount, GuidanceScale = _guidance };
+         { Prompt = _prompt, Scheduler = _scheduler,
+           StepCount = _stepCount, GuidanceScale = _guidance };
 
         await _pipeline.InitializeAsync(ResourceInfo, _computeUnits);
 
