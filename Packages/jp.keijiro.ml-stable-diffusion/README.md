@@ -34,6 +34,38 @@ Before running the sample project, you must put the model files in the
 It takes a long time (a few minutes) for the first run. After this
 initialization step, it only takes a few tens of seconds to generate an image.
 
+Performance Considerations
+--------------------------
+
+You can change which processing unit it uses by switching the "Compute Units"
+property in the Tester component.
+
+It depends on the device model to choose the best option:
+
+- M1/M2 Mac and iOS: GPUs in those devices are not powerful enough, so you
+  should select "CPU and NE" (Neural Engine) or "All".
+- M1/M2 Pro/Max Mac: GPUs in those devices have enough processing power
+  compared to NE, so "CPU and GPU" can be a better option.
+
+When using "CPU and GPU" mode, you must use the "original" model instead of
+the "split_einsum" model. Please overwrite the `StreamingAssets/StableDiffusion`
+directory with the `original/compiled` directory.
+
+LCM (SD-Turbo) Support
+----------------------
+
+You can use [SD-Turbo] or other LCMs (latent consistency models) with setting
+`Pipeline.Scheduler` to `Lcm`. You might also have to change `StepCount` to 1~4
+and `GuidanceScale` to 1~2. Please refer to the model description to know the
+correct settings.
+
+You can download the [pre-converted SD-Turbo model] from my Hugging Face
+repository.
+
+[SD-Turbo]: https://huggingface.co/stabilityai/sd-turbo
+[pre-converted SD-Turbo model]:
+  https://huggingface.co/keijiro-tk/coreml-sd-turbo
+
 Sample Projects
 ---------------
 

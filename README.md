@@ -47,14 +47,14 @@ It depends on the device model to choose the best option:
 - M1/M2 Pro/Max Mac: GPUs in those devices have enough processing power
   compared to NE, so "CPU and GPU" can be a better option.
 
-When using "CPU and GPU" mode, you should use the "original" model instead of
+When using "CPU and GPU" mode, you must use the "original" model instead of
 the "split_einsum" model. Please overwrite the `StreamingAssets/StableDiffusion`
 directory with the `original/compiled` directory.
 
 LCM (SD-Turbo) Support
 ----------------------
 
-You can use [SD-Turbo] and other LCMs (latent consistency models) by setting
+You can use [SD-Turbo] or other LCMs (latent consistency models) with setting
 `Pipeline.Scheduler` to `Lcm`. You might also have to change `StepCount` to 1~4
 and `GuidanceScale` to 1~2. Please refer to the model description to know the
 correct settings.
