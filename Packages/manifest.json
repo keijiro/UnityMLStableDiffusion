@@ -3,7 +3,7 @@
     "com.unity.ugui": "2.0.0",
     "jp.keijiro.danish-statues": "1.0.0",
     "jp.keijiro.klak.motion": "1.1.0",
-    "jp.keijiro.klak.testtools": "2.0.0"
+    "jp.keijiro.klak.testtools": "3.0.0"
   },
   "scopedRegistries": [
     {
