@@ -1,0 +1,71 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Tester.uss?fileID=7433441132597879392&amp;guid=11244d121410e465e8a52a61098a92c1&amp;type=3#Tester" />
+    <engine:VisualElement name="parent" style="flex-grow: 1; flex-direction: row;">
+        <engine:VisualElement name="control-panel" style="width: 480px; margin-top: 30px; margin-right: 30px; margin-bottom: 30px; margin-left: 30px;">
+            <engine:VisualElement name="control-container" style="flex-grow: 1;">
+                <engine:TextField label="Prompt" multiline="true" name="prompt-field" style="height: 120px; white-space: normal;">
+                    <Bindings>
+                        <engine:DataBinding property="value" data-source-path="Prompt" />
+                    </Bindings>
+                </engine:TextField>
+                <engine:VisualElement name="strength-row" style="flex-direction: row;">
+                    <engine:Slider label="Strength" high-value="1" name="strength-slider" style="flex-grow: 1;">
+                        <Bindings>
+                            <engine:DataBinding property="value" data-source-path="Strength" />
+                        </Bindings>
+                    </engine:Slider>
+                    <engine:Label name="strength-value-label" class="sliderValueLabel">
+                        <Bindings>
+                            <engine:DataBinding property="text" binding-mode="ToTarget" data-source-path="Strength" />
+                        </Bindings>
+                    </engine:Label>
+                </engine:VisualElement>
+                <engine:VisualElement name="step-count-row" style="flex-direction: row;">
+                    <engine:SliderInt label="Step Count" high-value="50" low-value="1" name="step-count-slider" style="flex-grow: 1;">
+                        <Bindings>
+                            <engine:DataBinding property="value" data-source-path="StepCount" />
+                        </Bindings>
+                    </engine:SliderInt>
+                    <engine:Label name="step-count-value-label" class="sliderValueLabel">
+                        <Bindings>
+                            <engine:DataBinding property="text" binding-mode="ToTarget" data-source-path="StepCount" />
+                        </Bindings>
+                    </engine:Label>
+                </engine:VisualElement>
+                <engine:VisualElement name="seed-row" style="flex-direction: row;">
+                    <engine:SliderInt label="Seed" high-value="65536" name="seed-slider" style="flex-grow: 1;">
+                        <Bindings>
+                            <engine:DataBinding property="value" data-source-path="Seed" />
+                        </Bindings>
+                    </engine:SliderInt>
+                    <engine:Label name="seed-value-label" class="sliderValueLabel">
+                        <Bindings>
+                            <engine:DataBinding property="text" binding-mode="ToTarget" data-source-path="Seed" />
+                        </Bindings>
+                    </engine:Label>
+                </engine:VisualElement>
+                <engine:VisualElement name="guidance-scale-row" style="flex-direction: row;">
+                    <engine:Slider label="Guidance Scale" high-value="20" name="guidance-scale-slider" style="flex-grow: 1;">
+                        <Bindings>
+                            <engine:DataBinding property="value" data-source-path="GuidanceScale" />
+                        </Bindings>
+                    </engine:Slider>
+                    <engine:Label name="guidance-scale-value-label" class="sliderValueLabel">
+                        <Bindings>
+                            <engine:DataBinding property="text" binding-mode="ToTarget" data-source-path="GuidanceScale" />
+                        </Bindings>
+                    </engine:Label>
+                </engine:VisualElement>
+            </engine:VisualElement>
+            <engine:Label text="Log Text" name="log-text">
+                <Bindings>
+                    <engine:DataBinding property="text" binding-mode="ToTarget" data-source-path="LogText" />
+                </Bindings>
+            </engine:Label>
+            <engine:Button text="Generate" name="generate-button" />
+        </engine:VisualElement>
+        <engine:VisualElement name="preview-panel" style="flex-grow: 1; margin-top: 30px; margin-right: 30px; margin-bottom: 30px; margin-left: 30px;">
+            <GallantGames.UI.AspectRatioPanel aspect-ratio-x="1" aspect-ratio-y="1" name="preview" style="background-color: rgb(87, 87, 87);" />
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:UXML>
