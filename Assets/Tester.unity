@@ -146,7 +146,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.8962264, g: 0.89504564, b: 0.87740564, a: 0}
+  m_BackGroundColor: {r: 0.16838461, g: 0.18063076, b: 0.199, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -213,6 +213,8 @@ GameObject:
   - component: {fileID: 1955398683}
   - component: {fileID: 1955398682}
   - component: {fileID: 1955398684}
+  - component: {fileID: 1955398686}
+  - component: {fileID: 1955398685}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -232,9 +234,9 @@ MonoBehaviour:
   m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PanelSettings: {fileID: 11400000, guid: a55cf69facc374912b4d4b9931cce98a, type: 2}
+  m_PanelSettings: {fileID: 11400000, guid: baee66811cd131440a1088b4bf5187ed, type: 2}
   m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: 6fe76f0a6c2924c65b04ac0894200eab, type: 3}
+  sourceAsset: {fileID: 9197481963319205126, guid: 069389883b500486c84dd24074edd035, type: 3}
   m_SortingOrder: 0
 --- !u!4 &1955398683
 Transform:
@@ -263,16 +265,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1772d845a3b3d481ebbac31a4cc679b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Prompt>k__BackingField: a masterpiece painting of a golden retriever dog
-  <Strength>k__BackingField: 0.5
-  <StepCount>k__BackingField: 10
-  <Seed>k__BackingField: 1234
-  <GuidanceScale>k__BackingField: 10
+  _settings: {fileID: 11400000, guid: be9e5417d77194ccd92f9f47b1e29ec0, type: 2}
   _resourceDir: StableDiffusion
   _modelSize: {x: 512, y: 512}
   _computeUnits: 3
   _scheduler: 1
-  _preprocessShader: {fileID: 0}
+  _preprocessShader: {fileID: 7200000, guid: 7c06db8e339994c05bc2ad5e44c940de, type: 3}
+--- !u!114 &1955398685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955398681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40ff2e515a81541cbb664860588e2c6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _generatorShader: {fileID: 4800000, guid: 3f7d8db4748f54c638a46cec0b0e61f8, type: 3}
+  _sourceType: 0
+  _outputResolution: {x: 1920, y: 1080}
+  _outputDestination: {fileID: 0}
+  <SourceTexture>k__BackingField: {fileID: 2800000, guid: a7f6159b4e3b24b0bae8cade1479b130, type: 3}
+  _sourceVideo: {fileID: 0}
+  <SourceCamera>k__BackingField: {fileID: 0}
+  _sourceUrl: 
+  _sourceName: 
+  _deviceResolution: {x: 0, y: 0}
+  _deviceFrameRate: 0
+--- !u!114 &1955398686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955398681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4392a036104d54e40b7eccfc3016884b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ImageList:
+  - {fileID: 2800000, guid: a7f6159b4e3b24b0bae8cade1479b130, type: 3}
+  - {fileID: 2800000, guid: b22a707369e654ce5b797e408e8b7df0, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

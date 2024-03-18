@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 19101, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: Default
+  m_Name: Panel
   m_EditorClassIdentifier: 
-  themeUss: {fileID: -4733365628477956816, guid: c96c02cebc50548439a1de887e8b334c, type: 3}
+  themeUss: {fileID: -4733365628477956816, guid: fc13e98ced2863a498ac563b785f68af, type: 3}
   m_TargetTexture: {fileID: 0}
   m_RenderMode: 0
   m_WorldSpaceLayer: 0
@@ -20,9 +20,9 @@ MonoBehaviour:
   m_ReferenceSpritePixelsPerUnit: 100
   m_PixelsPerUnit: 100
   m_Scale: 1
-  m_ReferenceDpi: 160
-  m_FallbackDpi: 160
-  m_ReferenceResolution: {x: 1200, y: 800}
+  m_ReferenceDpi: 200
+  m_FallbackDpi: 200
+  m_ReferenceResolution: {x: 1280, y: 1080}
   m_ScreenMatchMode: 0
   m_Match: 0
   m_SortingOrder: 0
@@ -36,7 +36,7 @@ MonoBehaviour:
     m_MinAtlasSize: 64
     m_MaxAtlasSize: 4096
     m_MaxSubTextureSize: 64
-    m_ActiveFilters: 31
+    m_ActiveFilters: -1
   m_AtlasBlitShader: {fileID: 9101, guid: 0000000000000000f000000000000000, type: 0}
   m_RuntimeShader: {fileID: 9100, guid: 0000000000000000f000000000000000, type: 0}
   m_RuntimeWorldShader: {fileID: 9102, guid: 0000000000000000f000000000000000, type: 0}

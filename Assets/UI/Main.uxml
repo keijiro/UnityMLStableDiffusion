@@ -1,0 +1,10 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <engine:Template name="Control" src="project://database/Assets/UI/Control.uxml?fileID=9197481963319205126&amp;guid=4587e37b00da06b43ba4abebc7bfc4bb&amp;type=3#Control" />
+    <Style src="project://database/Assets/UI/FlatStyles.uss?fileID=7433441132597879392&amp;guid=f66488d5732f645af8d4ea5c4842cb98&amp;type=3#FlatStyles" />
+    <engine:VisualElement name="root" style="flex-direction: row; flex-grow: 1;">
+        <engine:Instance template="Control" />
+        <engine:VisualElement name="preview-panel" style="flex-grow: 1;">
+            <GallantGames.UI.AspectRatioPanel aspect-ratio-x="1" aspect-ratio-y="1" name="preview" style="background-color: rgba(255, 0, 0, 0.25);" />
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:UXML>

@@ -1,4 +1,0 @@
-.sliderValueLabel {
-    width: 50px;
-    -unity-text-align: middle-right;
-}

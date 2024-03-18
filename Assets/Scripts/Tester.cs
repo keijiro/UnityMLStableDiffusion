@@ -10,27 +10,15 @@ public sealed class Tester : MonoBehaviour
 {
     #region Properties for UI binding
 
-    [field:SerializeField][CreateProperty]
-    public string Prompt { get; set; } = "dog";
-
-    [field:SerializeField][CreateProperty]
-    public float Strength { get; set; } = 0.5f;
-
-    [field:SerializeField][CreateProperty]
-    public int StepCount { get; set; } = 10;
-
-    [field:SerializeField][CreateProperty]
-    public int Seed { get; set; } = 1234;
-
-    [field:SerializeField][CreateProperty]
-    public float GuidanceScale { get; set; } = 10;
-
     [CreateProperty]
     public string LogText { get; set; }
 
     #endregion
 
     #region Editor-only properties
+
+    [SerializeField]
+    GeneratorSettings _settings = null;
 
     [SerializeField]
     string _resourceDir = "StableDiffusion";
@@ -54,11 +42,37 @@ public sealed class Tester : MonoBehaviour
 
     #region UI helpers
 
-    VisualElement UIRoot => GetComponent<UIDocument>().rootVisualElement;
-    VisualElement UIPreview => UIRoot.Q("preview");
-    VisualElement UIGenerateButton => UIRoot.Q("generate-button");
+    ImageSource ImageSource => GetComponent<ImageSource>();
 
-    async void OnClickGenerate(ClickEvent e) => await RunPipelineAsync();
+    VisualElement UIRoot => GetComponent<UIDocument>().rootVisualElement;
+    VisualElement UIControlPanel => UIRoot.Q("control-panel");
+    VisualElement UIImageSourceTabs => UIRoot.Q("image-source-tabs");
+    VisualElement UIPreview => UIRoot.Q("preview");
+    VisualElement UIGenerateByTextButton => UIRoot.Q("text-generate-button");
+    VisualElement UIGenerateByImageButton => UIRoot.Q("image-generate-button");
+    VisualElement UIGenerateByWebcamButton => UIRoot.Q("webcam-generate-button");
+    VisualElement UILogText => UIRoot.Q("log-label");
+
+    async void OnClickGenerateByTextButton(ClickEvent e)
+    {
+        UIImageSourceTabs.SetEnabled(false);
+        await RunPipelineAsync(null);
+        UIImageSourceTabs.SetEnabled(true);
+    }
+
+    async void OnClickGenerateByImageButton(ClickEvent e)
+    {
+        UIImageSourceTabs.SetEnabled(false);
+        await RunPipelineAsync(ImageSource.AsTexture);
+        UIImageSourceTabs.SetEnabled(true);
+    }
+
+    async void OnClickGenerateByWebcamButton(ClickEvent e)
+    {
+        UIImageSourceTabs.SetEnabled(false);
+        await RunPipelineAsync(ImageSource.AsTexture);
+        UIImageSourceTabs.SetEnabled(true);
+    }
 
     #endregion
 
@@ -83,36 +97,34 @@ public sealed class Tester : MonoBehaviour
     {
         LogText = "Loading resources...\n" +
           "(This takes a few minites for the first time.)";
-        UIGenerateButton.SetEnabled(false);
+        UIImageSourceTabs.SetEnabled(false);
 
         _pipeline = new MLStableDiffusion.Pipeline(_preprocessShader);
         await _pipeline.InitializeAsync(ResourceInfo, _computeUnits);
 
         LogText = "";
-        UIGenerateButton.SetEnabled(true);
+        UIImageSourceTabs.SetEnabled(true);
     }
 
-    async Awaitable RunPipelineAsync()
+    async Awaitable RunPipelineAsync(Texture sourceImage)
     {
         LogText = "Generating...";;
-        UIGenerateButton.SetEnabled(false);
 
-        _pipeline.Prompt = Prompt;
-        _pipeline.Strength = Strength;
+        _pipeline.Prompt = _settings.prompt;
+        _pipeline.Strength = _settings.strength;
         _pipeline.Scheduler = _scheduler;
-        _pipeline.StepCount = StepCount;
-        _pipeline.Seed = Seed;
-        _pipeline.GuidanceScale = GuidanceScale;
+        _pipeline.StepCount = _settings.stepCount;
+        _pipeline.Seed = _settings.seed;
+        _pipeline.GuidanceScale = _settings.guidance;
 
         var time = new Stopwatch();
         time.Start();
-        await _pipeline.RunAsync(null, _generated.rt, destroyCancellationToken);
+        await _pipeline.RunAsync(sourceImage, _generated.rt, destroyCancellationToken);
         time.Stop();
 
         Graphics.CopyTexture(_generated.rt, _generated.tex2d);
 
         LogText = $"Generation time: {time.Elapsed.TotalSeconds:f2} sec";
-        UIGenerateButton.SetEnabled(true);
     }
 
     #endregion
@@ -121,8 +133,12 @@ public sealed class Tester : MonoBehaviour
 
     void Start()
     {
-        UIRoot.dataSource = this;
-        UIGenerateButton.RegisterCallback<ClickEvent>(OnClickGenerate);
+        UIControlPanel.dataSource = _settings;
+        UILogText.dataSource = this;
+
+        UIGenerateByTextButton.RegisterCallback<ClickEvent>(OnClickGenerateByTextButton);
+        UIGenerateByImageButton.RegisterCallback<ClickEvent>(OnClickGenerateByImageButton);
+        UIGenerateByWebcamButton.RegisterCallback<ClickEvent>(OnClickGenerateByWebcamButton);
 
         var (w, h) = (_modelSize.x, _modelSize.y);
         _generated.rt = new RenderTexture(w, h, 0, RenderTextureFormat.BGRA32);
