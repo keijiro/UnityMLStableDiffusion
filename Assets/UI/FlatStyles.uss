@@ -38,6 +38,11 @@ Tab {
     -unity-font-style: bold;
 }
 
+.unity-button:disabled {
+    background-color: rgba(0, 0, 0, 0);
+    color: rgba(255, 255, 255, 0.13);
+}
+
 .unity-button:hover:enabled {
     border-left-color: rgb(255, 255, 255);
     border-right-color: rgb(255, 255, 255);
@@ -74,6 +79,10 @@ Tab {
     border-right-color: rgb(156, 156, 156);
     border-top-color: rgb(156, 156, 156);
     border-bottom-color: rgb(156, 156, 156);
+}
+
+.unity-base-text-field__input:disabled {
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .unity-text-field {
@@ -130,6 +139,10 @@ Tab {
     border-top-width: 0;
     border-right-width: 0;
     border-left-width: 0;
+}
+
+.unity-base-popup-field__input:disabled {
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .unity-base-popup-field__arrow {
