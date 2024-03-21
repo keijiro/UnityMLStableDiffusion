@@ -30,18 +30,22 @@ public sealed class SourceSelector : MonoBehaviour
         WebcamDropdown.value = null;
     }
 
-    void OnSelectWebcam(ChangeEvent<string> evt)
-    {
-        if (string.IsNullOrEmpty(evt.newValue)) return;
-        Target.SourceType = ImageSourceType.Webcam;
-        Target.SourceName = evt.newValue;
-    }
-
     void OnSelectImage(ChangeEvent<string> evt)
     {
         if (string.IsNullOrEmpty(evt.newValue)) return;
         Target.SourceType = ImageSourceType.Texture;
         Target.SourceTexture = ImageList.First(x => x.name == evt.newValue);
+        ImagePreview.style.backgroundImage
+          = Background.FromRenderTexture(Target.AsRenderTexture);
+    }
+
+    void OnSelectWebcam(ChangeEvent<string> evt)
+    {
+        if (string.IsNullOrEmpty(evt.newValue)) return;
+        Target.SourceType = ImageSourceType.Webcam;
+        Target.SourceName = evt.newValue;
+        WebcamPreview.style.backgroundImage
+          = Background.FromRenderTexture(Target.AsRenderTexture);
     }
 
     #endregion
@@ -60,8 +64,14 @@ public sealed class SourceSelector : MonoBehaviour
     DropdownField ImageDropdown
       => UIRoot.Q<DropdownField>("image-selector");
 
+    VisualElement ImagePreview
+      => UIRoot.Q<VisualElement>("image-preview");
+
     DropdownField WebcamDropdown
       => UIRoot.Q<DropdownField>("webcam-selector");
+
+    VisualElement WebcamPreview
+      => UIRoot.Q<VisualElement>("webcam-preview");
 
     #endregion
 

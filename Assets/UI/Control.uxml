@@ -31,8 +31,19 @@
             </engine:Label>
         </engine:VisualElement>
         <engine:TabView name="image-source-tabs">
-            <engine:Tab label="Text to Image">
-                <engine:Button text="Generate&#x9;" name="text-generate-button" />
+            <engine:Tab label="Webcam to Image">
+                <engine:DropdownField label="Device" name="webcam-selector" data-source-type="SourceSelector, Assembly-CSharp">
+                    <Bindings>
+                        <engine:DataBinding property="choices" data-source-path="WebcamNameList" />
+                    </Bindings>
+                </engine:DropdownField>
+                <engine:VisualElement name="webcam-preview" style="width: 200px; height: 200px; background-color: rgb(0, 0, 0); align-self: center; margin-top: 10px; margin-right: 10px; margin-bottom: 10px; margin-left: 10px;" />
+                <engine:Slider label="Strength" name="webcam-strength" high-value="1" show-input-field="true" style="flex-grow: 1;">
+                    <Bindings>
+                        <engine:DataBinding property="value" data-source-path="strength" />
+                    </Bindings>
+                </engine:Slider>
+                <engine:Button text="Generate&#x9;" name="webcam-generate-button" />
             </engine:Tab>
             <engine:Tab label="Image to Image">
                 <engine:DropdownField label="Image" name="image-selector" data-source-type="SourceSelector, Assembly-CSharp">
@@ -40,6 +51,7 @@
                         <engine:DataBinding property="choices" data-source-path="ImageNameList" />
                     </Bindings>
                 </engine:DropdownField>
+                <engine:VisualElement name="image-preview" style="width: 200px; height: 200px; background-color: rgb(0, 0, 0); align-self: center; margin-top: 10px; margin-right: 10px; margin-bottom: 10px; margin-left: 10px;" />
                 <engine:Slider label="Strength" name="image-strength" high-value="1" show-input-field="true" style="flex-grow: 1;">
                     <Bindings>
                         <engine:DataBinding property="value" data-source-path="strength" />
@@ -47,18 +59,8 @@
                 </engine:Slider>
                 <engine:Button text="Generate&#x9;" name="image-generate-button" />
             </engine:Tab>
-            <engine:Tab label="Webcam to Image">
-                <engine:DropdownField label="Device" name="webcam-selector" data-source-type="SourceSelector, Assembly-CSharp">
-                    <Bindings>
-                        <engine:DataBinding property="choices" data-source-path="WebcamNameList" />
-                    </Bindings>
-                </engine:DropdownField>
-                <engine:Slider label="Strength" name="webcam-strength" high-value="1" show-input-field="true" style="flex-grow: 1;">
-                    <Bindings>
-                        <engine:DataBinding property="value" data-source-path="strength" />
-                    </Bindings>
-                </engine:Slider>
-                <engine:Button text="Generate&#x9;" name="webcam-generate-button" />
+            <engine:Tab label="Text to Image">
+                <engine:Button text="Generate&#x9;" name="text-generate-button" />
             </engine:Tab>
         </engine:TabView>
     </engine:VisualElement>

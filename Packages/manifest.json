@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "jp.keijiro.klak.testtools": "3.0.0",
+    "jp.keijiro.klak.testtools": "3.1.0",
     "com.unity.modules.uielements": "1.0.0"
   },
   "scopedRegistries": [

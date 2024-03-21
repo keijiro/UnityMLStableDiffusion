@@ -285,7 +285,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _generatorShader: {fileID: 4800000, guid: 3f7d8db4748f54c638a46cec0b0e61f8, type: 3}
   _sourceType: 0
-  _outputResolution: {x: 1920, y: 1080}
+  _outputResolution: {x: 512, y: 512}
   _outputDestination: {fileID: 0}
   <SourceTexture>k__BackingField: {fileID: 2800000, guid: a7f6159b4e3b24b0bae8cade1479b130, type: 3}
   _sourceVideo: {fileID: 0}
